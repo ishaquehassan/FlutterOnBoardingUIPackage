@@ -2,15 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:on_boarding_ui/OnBoarding.dart';
-import 'package:on_boarding_ui/model/slider.dart' as SliderModel;
+import 'package:on_boarding_ui/on_boarding_ui.dart';
 
 import '../constants/constants.dart';
 import '../widgets/slide_dots.dart';
 import '../widgets/slide_items/slide_item.dart';
 
 class SliderLayoutView extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() => _SliderLayoutViewState();
 }
@@ -46,7 +44,7 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
   @override
   Widget build(BuildContext context) => topSliderLayout();
 
-  Widget topSliderLayout(){
+  Widget topSliderLayout() {
     var slides = Configs.getInstance().slides;
     return Container(
       child: Padding(
@@ -59,53 +57,54 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
                 controller: _pageController,
                 onPageChanged: _onPageChanged,
                 itemCount: slides.length,
-                itemBuilder: (ctx, i) => SlideItem(slides,i),
+                itemBuilder: (ctx, i) => SlideItem(slides, i),
               ),
               Stack(
                 alignment: AlignmentDirectional.topStart,
                 children: <Widget>[
-                  InkWell(
-                    onTap: (){
-                      if(_currentPage+1 < slides.length){
-                        _pageController.jumpToPage(_currentPage+1);
-                      }else{
-                        Configs.getInstance().onFinish();
-                      }
-                    },
-                    child: Align(
+                  Align(
                       alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 15.0, bottom: 15.0),
-                        child: Text(
-                          _currentPage+1 == slides.length ? Constants.FINISH : Constants.NEXT,
-                          style: TextStyle(
-                            fontFamily: Constants.OPEN_SANS,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14.0,
+                      child: GestureDetector(
+                        onTap: () {
+                          print(_currentPage);
+                          if (_currentPage <= slides.length-1) {
+                            _pageController.jumpToPage(_currentPage+1);
+                          } else {
+                            Configs.getInstance().onFinish();
+                          }
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 15.0, bottom: 15.0),
+                          child: Text(
+                            _currentPage + 1 == slides.length
+                                ? Constants.FINISH
+                                : Constants.NEXT,
+                            style: TextStyle(
+                              fontFamily: Constants.OPEN_SANS,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14.0,
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: (){
-                      Configs.getInstance().onFinish();
-                    },
-                    child: Align(
+                      )),
+                  Align(
                       alignment: Alignment.bottomLeft,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 15.0, bottom: 15.0),
-                        child: Text(
-                          _currentPage+1 == slides.length ? Constants.FINISH : Constants.SKIP,
-                          style: TextStyle(
-                            fontFamily: Constants.OPEN_SANS,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14.0,
+                      child: GestureDetector(
+                        onTap: () {
+                          Configs.getInstance().onFinish();
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 15.0, bottom: 15.0),
+                          child: Text(
+                            Constants.SKIP,
+                            style: TextStyle(
+                              fontFamily: Constants.OPEN_SANS,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14.0,
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
+                      )),
                   Container(
                     alignment: AlignmentDirectional.bottomCenter,
                     margin: EdgeInsets.only(bottom: 20.0),

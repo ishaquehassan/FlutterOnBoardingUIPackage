@@ -6,11 +6,14 @@ A conceptual design for on boarding screens for mobile apps. This app provides y
 
 ## Usage Sample
 ```dart
-class OnBoardingScreen extends StatelessWidget {
+
+import 'package:on_boarding_ui/model/slider.dart' as SliderModel;
+
+class OnBoarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: OnBoardingUi([
+      body: OnBoardingUi(slides:[
         SliderModel.Slider(
           sliderHeading: "Slide 1",
           sliderSubHeading: "Slide Sub Heading 1",
@@ -26,7 +29,9 @@ class OnBoardingScreen extends StatelessWidget {
           sliderSubHeading: "Slide Sub Heading 1",
           sliderImageUrl: CImages.slider3,
         )
-      ]),
+      ],onFinish: (){
+         // Your OnFinish code here
+      }),
     );
   }
 }
