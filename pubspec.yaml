@@ -1,7 +1,7 @@
 name: on_boarding_ui
 description: A Flutter package for On Boarding Screen.
 version: 0.0.1
-homepage: https://github.com/CodeHomie/Flutter-Onboarding-UI-Concept
+homepage: https://github.com/ishaquehassan/FlutterOnBoardingUIPackage.git
 
 environment:
   sdk: ">=2.5.2 <3.0.0"
