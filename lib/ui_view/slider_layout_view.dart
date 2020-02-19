@@ -1,12 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import '../widgets/slide_dots.dart';
+import 'package:on_boarding_ui/model/slider.dart' as SliderModel;
+
 import '../constants/constants.dart';
-import '../model/slider.dart';
+import '../widgets/slide_dots.dart';
 import '../widgets/slide_items/slide_item.dart';
 
 class SliderLayoutView extends StatefulWidget {
+  final List<SliderModel.Slider> slides;
+
+
+  SliderLayoutView(this.slides);
+
   @override
   State<StatefulWidget> createState() => _SliderLayoutViewState();
 }
@@ -52,8 +58,8 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
                   scrollDirection: Axis.horizontal,
                   controller: _pageController,
                   onPageChanged: _onPageChanged,
-                  itemCount: sliderArrayList.length,
-                  itemBuilder: (ctx, i) => SlideItem(i),
+                  itemCount: widget.slides.length,
+                  itemBuilder: (ctx, i) => SlideItem(widget.slides,i),
                 ),
                 Stack(
                   alignment: AlignmentDirectional.topStart,
@@ -92,7 +98,7 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          for (int i = 0; i < sliderArrayList.length; i++)
+                          for (int i = 0; i < widget.slides.length; i++)
                             if (i == _currentPage)
                               SlideDots(true)
                             else

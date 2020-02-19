@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import '../../constants/constants.dart';
-import '../../model/slider.dart';
+import 'package:on_boarding_ui/model/slider.dart' as SliderModel;
+
 
 class SlideItem extends StatelessWidget {
+  final List<SliderModel.Slider> slides;
+
   final int index;
-  SlideItem(this.index);
+
+  const SlideItem(this.slides, this.index);
+
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +22,13 @@ class SlideItem extends StatelessWidget {
           width: MediaQuery.of(context).size.height * 0.4,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(sliderArrayList[index].sliderImageUrl))),
+                  image: AssetImage(slides[index].sliderImageUrl))),
         ),
         SizedBox(
           height: 60.0,
         ),
         Text(
-          sliderArrayList[index].sliderHeading,
+          slides[index].sliderHeading,
           style: TextStyle(
             fontFamily: Constants.POPPINS,
             fontWeight: FontWeight.w700,
@@ -37,7 +42,7 @@ class SlideItem extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 40.0),
             child: Text(
-              sliderArrayList[index].sliderSubHeading,
+              slides[index].sliderSubHeading,
               style: TextStyle(
                 fontFamily: Constants.OPEN_SANS,
                 fontWeight: FontWeight.w500,
